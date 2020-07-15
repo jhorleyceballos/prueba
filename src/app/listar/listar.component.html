@@ -1,0 +1,41 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/" routerLinkActive="active">Razas</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Listar</li>
+    </ol>
+</nav>
+<br>
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <b>RAZA: {{nombre_raza}}</b>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nombre del Perro</th>
+                    <th scope="col">Fecha Nacimiento</th>
+                    <th scope="col">Edad</th>
+                    <th scope="col">Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let registro of perros_registrados;let indexOfelement=index;">
+                    <th scope="row">{{indexOfelement+1}}</th>
+                    <td>
+                        {{registro}}
+                    </td>
+                    <td>25-04-2005</td>
+                    <td>15</td>
+                    <td>
+                        <button class="btn btn-outline-success btn-sm mx-1" (click)="desarrollando()">Editar</button>
+
+                        <button class="btn btn-outline-primary btn-sm mx-1" (click)="desarrollando()">Eliminar</button>
+                    </td>
+                </tr>
+            </tbody>
+            <small *ngIf="perros_registrados.length==0">sin registros</small>
+        </table>
+    </div>
+</div>

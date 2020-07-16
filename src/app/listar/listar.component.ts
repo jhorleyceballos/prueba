@@ -8,6 +8,7 @@ import { PerroService } from '../services/perro.service';
   styleUrls: ['./listar.component.css'],
   providers: [PerroService],
 })
+
 export class ListarComponent implements OnInit {
   public nombre_raza: string;
   public perros_registrados = [];

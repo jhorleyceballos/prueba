@@ -30,7 +30,7 @@
                     <td>{{raza.nombre}}</td>
                     <td>{{raza.registros.length}}</td>
                     <td>
-                        <a routerLink="/agregar" routerLinkActive="active">
+                        <a [routerLink]="['/agregar', raza.nombre]" routerLinkActive="active">
                             <button class="btn btn-outline-success btn-sm mx-1">Agregar</button>
                         </a>
                         <a [routerLink]="['/listar', raza.nombre]" routerLinkActive="active">

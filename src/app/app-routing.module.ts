@@ -7,7 +7,7 @@ import { RazasComponent } from './razas/razas.component';
 const routes: Routes = [
   { path: '', component: RazasComponent },
   { path: 'listar/:raza', component: ListarComponent },
-  { path: 'agregar', component: AgregarComponent },
+  { path: 'agregar/:raza', component: AgregarComponent },
   { path: 'razas', component: RazasComponent },
   { path: '**', component: RazasComponent },
 ];

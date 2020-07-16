@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
 import { Perro } from '../models/perro';
 
 @Component({
@@ -7,15 +8,23 @@ import { Perro } from '../models/perro';
   styleUrls: ['./agregar.component.css'],
 })
 export class AgregarComponent implements OnInit {
-  public perro: Perro;
   public nombre: string;
+  public nombre_raza:string;
   public fecha_nacimiento: any;
 
-  constructor() {}
+  constructor(
+    private rutaActiva: ActivatedRoute,
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.nombre_raza = this.rutaActiva.snapshot.params.raza;
+  }
 
-  desarrollando() {
-    alert('En desarrollo...');
+  guardarLocal() {
+    let registro=[{nombre:this.nombre,fecha_nacimiento:this.fecha_nacimiento}];
+    localStorage.setItem(this.nombre_raza, JSON.stringify(registro));
+    this.nombre='';
+    this.fecha_nacimiento='';
+    location.href="/"
   }
 }

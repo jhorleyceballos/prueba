@@ -23,7 +23,7 @@
                         <small class="float-right" *ngIf="!fecha_nacimiento && inp_fecha.touched">Fecha de nacimiento es requerido</small>
                     </div>
                 </div>
-                <button (click)="desarrollando()" class="btn btn-primary btn-block mt-3" [disabled]="!nombre || !fecha_nacimiento">Guardar</button>
+                <button (click)="guardarLocal()" class="btn btn-primary btn-block mt-3" [disabled]="!nombre || !fecha_nacimiento">Guardar</button>
             </form>
         </div>
     </div>

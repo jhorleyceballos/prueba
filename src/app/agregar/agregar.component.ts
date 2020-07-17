@@ -29,8 +29,6 @@ export class AgregarComponent implements OnInit {
     }
     array_registros.push(this.perro);
     localStorage.setItem(this.nombre_raza, JSON.stringify(array_registros));
-    this.perro.nombre='';
-    this.perro.fecha_nacimiento=null;
     location.href="/"
   }
 }

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable} from 'rxjs/Observable';
+import * as moment from 'moment';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { GLOBAL } from './global';
-import { Perro } from '../models/perro';
 
 @Injectable()
 export class PerroService {
@@ -14,6 +14,33 @@ export class PerroService {
 
   getRazas(): Observable<any> {
     return this._http.get(this.url + 'breeds/list/all');
+  }
+
+  getRazasLocal(raza) {
+    let perros_registrados= JSON.parse(localStorage.getItem(raza));
+    perros_registrados.forEach(element=>{
+        let nacimiento = moment(element.fecha_nacimiento);
+        let hoy = moment('2020-07-17');
+        element.edad = hoy.diff(nacimiento, 'days');
+      })
+    return perros_registrados;
+  }
+
+  updateLocal(raza, index, data) {
+    let razaLocal = this.getRazasLocal(raza);
+    razaLocal[index].nombre = data.nombre;
+    razaLocal[index].fecha_nacimiento = data.fecha_nacimiento;
+    localStorage.setItem(raza, JSON.stringify(razaLocal));
+  }
+
+  deleteLocal(raza, index) {
+    let razaLocal = this.getRazasLocal(raza);
+    razaLocal.forEach((element,idx)=>{
+      if(idx==index){
+        razaLocal.splice(index,1);
+      }
+    })
+    localStorage.setItem(raza,JSON.stringify(razaLocal));
   }
 
   getImg(nombre_raza): Observable<any> {

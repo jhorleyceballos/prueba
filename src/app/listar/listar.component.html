@@ -16,26 +16,100 @@
                     <th scope="col">#</th>
                     <th scope="col">Nombre del Perro</th>
                     <th scope="col">Fecha Nacimiento</th>
-                    <th scope="col">Edad</th>
+                    <th scope="col">Edad (días)</th>
                     <th scope="col">Opciones</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody >
                 <tr *ngFor="let registro of perros_registrados;let indexOfelement=index;">
                     <th scope="row">{{indexOfelement+1}}</th>
                     <td>
-                        {{registro}}
+                        {{registro.nombre}}
                     </td>
-                    <td>25-04-2005</td>
-                    <td>15</td>
                     <td>
-                        <button class="btn btn-outline-success btn-sm mx-1" (click)="desarrollando()">Editar</button>
-
-                        <button class="btn btn-outline-primary btn-sm mx-1" (click)="desarrollando()">Eliminar</button>
+                        {{registro.fecha_nacimiento}}
+                    </td>
+                    <td>{{registro.edad}}</td>
+                    <td>
+                        <button class="btn btn-outline-success btn-sm mx-1 rounded-pill" (click)="onModalEdit(registro)" data-toggle="modal" data-target="#modalEditar">
+                            Editar
+                        </button>
+                        <button class="btn btn-outline-danger btn-sm mx-1 rounded-pill" (click)="onModalDelete(registro)"  data-toggle="modal" data-target="#modalEliminar">
+                            Eliminar
+                        </button>
                     </td>
                 </tr>
             </tbody>
-            <small *ngIf="perros_registrados.length==0">sin registros</small>
         </table>
+    </div>
+    <div class="row justify-content-center"  *ngIf="perros_registrados.length==0">
+        <small>sin registros</small>
+    </div>
+    <div class="row justify-content-center" *ngIf="cargando">
+        <div class="spinner-grow text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-warning" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-success" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+</div>
+<!-- Modal editar raza-->
+<div class="modal fade" id="modalEditar" tabindex="-1" role="dialog" aria-labelledby="modalEditarLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Editar Perro</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <label for="nombre">Nombre del Perro</label>
+                        <input type="text" name="nombre" #inp_name="ngModel" [(ngModel)]="perro.nombre" class="form-control" required>
+                        <small class="float-right" *ngIf="!perro.nombre && inp_name.touched">Nombre es requerido</small>
+                    </div>
+                </div>
+                <div class="row my-2">
+                    <div class="col-12">
+                        <label for="fecha_nacimiento">Fecha nacimiento</label>
+                        <input type="date" name="fecha_nacimiento" #inp_fecha="ngModel" [(ngModel)]="perro.fecha_nacimiento"
+                            class="form-control" max="2020-07-17" required>
+                        <small class="float-right" *ngIf="!perro.fecha_nacimiento && inp_fecha.touched">Fecha de nacimiento es requerido</small>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="updatePerro()">Editar</button>
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Eliminar -->
+<div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="modalEliminarLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Eliminar Perro</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ¿Seguro que quieres eliminar al perro:  <b>{{perro.nombre}}</b>?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal"
+                    (click)="deletePerro()">Eliminar</button>
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
     </div>
 </div>

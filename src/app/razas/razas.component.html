@@ -23,7 +23,7 @@
                 <tr *ngFor="let raza of razas;let indexOfelement=index;">
                     <th scope="row">{{indexOfelement+1}}</th>
                     <td>
-                        <button type="button" (click)="mostrarImg(raza.nombre)" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalImg">
+                        <button type="button" (click)="mostrarImg(raza.nombre)" class="btn btn-primary btn-sm rounded-pill" data-toggle="modal" data-target="#modalImg">
                             VER
                         </button>
                     </td>
@@ -31,15 +31,26 @@
                     <td>{{raza.registros.length}}</td>
                     <td>
                         <a [routerLink]="['/agregar', raza.nombre]" routerLinkActive="active">
-                            <button class="btn btn-outline-success btn-sm mx-1">Agregar</button>
+                            <button class="btn btn-outline-success btn-sm mx-1 rounded-pill">Agregar</button>
                         </a>
                         <a [routerLink]="['/listar', raza.nombre]" routerLinkActive="active">
-                            <button class="btn btn-outline-primary btn-sm mx-1">Listar</button>
+                            <button class="btn btn-outline-primary btn-sm mx-1 rounded-pill">Listar</button>
                         </a>
                     </td>
                 </tr>
             </tbody>
         </table>
+    </div>
+    <div class="row justify-content-center" *ngIf="cargando">
+        <div class="spinner-grow text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-warning" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-success" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
     </div>
 </div>
 <!-- Modal imagen raza-->

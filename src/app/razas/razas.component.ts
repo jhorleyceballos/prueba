@@ -9,9 +9,10 @@ import {PerroService} from '../services/perro.service';
 })
 export class RazasComponent implements OnInit {
   public razas = [];
+  public url_imagen: string;
   public titleModal: string;
-  public mostrarModal = false;
-  public url_imagen:string;
+  public cargando: boolean = true;
+  public mostrarModal: boolean = false;
 
   constructor(private _perroService: PerroService) {}
 
@@ -19,13 +20,16 @@ export class RazasComponent implements OnInit {
     this._perroService.getRazas().subscribe(
       (response) => {
         for (const raza in response.message) {
-          let name_raza = raza;
-          let total_registros = response.message[raza];
-          this.razas.push({ nombre: name_raza, registros: total_registros });
+          let total_registros = JSON.parse(localStorage.getItem(raza));
+          if (!total_registros) {
+            total_registros = [];
+          }
+          this.razas.push({ nombre: raza, registros: total_registros });
         }
+        this.cargando = false;
       },
       (error) => {
-        console.log('error');
+        console.log(error);
       }
     );
   }
@@ -34,10 +38,10 @@ export class RazasComponent implements OnInit {
     this.titleModal = 'IMAGEN RAZA: ' + nombre_raza;
     this._perroService.getImg(nombre_raza).subscribe(
       (response) => {
-        this.url_imagen=response.message;
+        this.url_imagen = response.message;
       },
       (error) => {
-        console.log('error');
+        console.log(error);
       }
     );
   }

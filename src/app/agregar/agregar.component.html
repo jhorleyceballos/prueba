@@ -6,26 +6,27 @@
 </nav>
 <br>
 <div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <form #agregarForm="ngForm" class="col-md-5">
-                <div class="row">
-                    <div class="col-12">
-                        <label for="nombre">Nombre del Perro</label>
-                        <input type="text" name="nombre" #inp_name="ngModel" [(ngModel)]="nombre" class="form-control" required>
-                        <small class="float-right" *ngIf="!nombre && inp_name.touched">Nombre es Requerido</small>
-                    </div>
+    <div class="row justify-content-center">
+        <b>RAZA: {{nombre_raza}}</b>
+    </div>
+    <div class="row justify-content-center">
+        <form #agregarForm="ngForm" class="col-md-5">
+            <div class="row">
+                <div class="col-12">
+                    <label for="nombre">Nombre del Perro</label>
+                    <input type="text" name="nombre" #inp_name="ngModel" [(ngModel)]="perro.nombre" class="form-control" required>
+                    <small class="float-right" *ngIf="!perro.nombre && inp_name.touched">Nombre es requerido</small>
                 </div>
-                <div class="row my-2">
-                    <div class="col-12">
-                        <label for="fecha_nacimiento">Fecha nacimiento</label>
-                        <input type="date" name="fecha_nacimiento" #inp_fecha="ngModel" [(ngModel)]="fecha_nacimiento"  class="form-control" required>
-                        <small class="float-right" *ngIf="!fecha_nacimiento && inp_fecha.touched">Fecha de nacimiento es requerido</small>
-                    </div>
+            </div>
+            <div class="row my-2">
+                <div class="col-12">
+                    <label for="fecha_nacimiento">Fecha nacimiento</label>
+                    <input type="date" name="fecha_nacimiento" #inp_fecha="ngModel" [(ngModel)]="perro.fecha_nacimiento"  class="form-control"  max="2020-07-17" required>
+                    <small class="float-right" *ngIf="!perro.fecha_nacimiento && inp_fecha.touched">Fecha de nacimiento es requerido</small>
                 </div>
-                <button (click)="guardarLocal()" class="btn btn-primary btn-block mt-3" [disabled]="!nombre || !fecha_nacimiento">Guardar</button>
-            </form>
-        </div>
+            </div>
+            <button (click)="guardarLocal()" class="btn btn-primary btn-block mt-3" [disabled]="!perro.nombre || !perro.fecha_nacimiento">Guardar</button>
+        </form>
     </div>
 </div>
 

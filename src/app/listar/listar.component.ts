@@ -12,7 +12,6 @@ import { PerroService } from '../services/perro.service';
 export class ListarComponent implements OnInit {
   public perro: Perro;
   public nombre_raza: string;
-  public nombre_pivot: string;
   public perros_registrados = [];
   public cargando:boolean = true;
 
@@ -22,39 +21,32 @@ export class ListarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.perro={nombre:'',fecha_nacimiento:null};
+    this.perro={index:null,nombre:'',fecha_nacimiento:null};
     this.nombre_raza = this.rutaActiva.snapshot.params.raza;
     this.perros_registrados = this._perroService.getRazasLocal(this.nombre_raza);
-    if (!this.perros_registrados) {
-      this.perros_registrados = [];
-    }
     this.cargando=false;
   }
 
   onModalEdit(item) {
-    this.nombre_pivot = item.nombre;
-    this.perro.nombre = item.nombre;
-    this.perro.fecha_nacimiento = item.fecha_nacimiento;
+    this.perro = item;
   }
 
   updatePerro() {
     this.perros_registrados.forEach((element, index) => {
-      if (element.nombre == this.nombre_pivot) {
-        this._perroService.updateLocal(this.nombre_raza, index, this.perro);
-        this.perros_registrados = this._perroService.getRazasLocal(
-          this.nombre_raza
-        );
+      if (index == this.perro.index) {
+        this._perroService.updateLocal(this.nombre_raza,index, this.perro);
+        this.perros_registrados = this._perroService.getRazasLocal(this.nombre_raza)
       }
     });
   }
 
   onModalDelete(item) {
-    this.perro.nombre = item.nombre;
+    this.perro = item;
   }
 
   deletePerro(){
     this.perros_registrados.forEach((element, index) => {
-      if (element.nombre == this.perro.nombre) {
+      if (index == this.perro.index) {
         this._perroService.deleteLocal(this.nombre_raza, index);
         this.perros_registrados = this._perroService.getRazasLocal( this.nombre_raza);
       }

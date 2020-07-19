@@ -17,7 +17,7 @@ export class AgregarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.perro={nombre:'',fecha_nacimiento:null};
+    this.perro={index:null,nombre:'',fecha_nacimiento:null};
     this.nombre_raza = this.rutaActiva.snapshot.params.raza;
   }
 

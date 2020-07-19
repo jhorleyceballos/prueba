@@ -18,15 +18,20 @@ export class PerroService {
 
   getRazasLocal(raza) {
     let perros_registrados= JSON.parse(localStorage.getItem(raza));
-    perros_registrados.forEach(element=>{
-        let nacimiento = moment(element.fecha_nacimiento);
-        let hoy = moment('2020-07-17');
-        element.edad = hoy.diff(nacimiento, 'days');
+    if (!perros_registrados) {
+      perros_registrados = [];
+    }else{
+      perros_registrados.forEach((element,index) => {
+          element.index=index;
+          let nacimiento = moment(element.fecha_nacimiento);
+          let hoy = moment('2020-07-17');
+          element.edad = hoy.diff(nacimiento, 'days');
       })
+    }
     return perros_registrados;
   }
 
-  updateLocal(raza, index, data) {
+  updateLocal(raza,index, data) {
     let razaLocal = this.getRazasLocal(raza);
     razaLocal[index].nombre = data.nombre;
     razaLocal[index].fecha_nacimiento = data.fecha_nacimiento;
